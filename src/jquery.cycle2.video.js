@@ -2,13 +2,9 @@
 (function($) {
 "use strict";
 
-var template = '<div class=cycle-youtube><object width="640" height="360">' +
-    '<param name="movie" value="{{url}}"></param>' +
-    '<param name="allowFullScreen" value="{{allowFullScreen}}"></param>' +
-    '<param name="allowscriptaccess" value="always"></param>' +
-    '<param name="wmode" value="opaque"></param>' +
-    '<embed src="{{url}}" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="{{allowFullScreen}}" wmode="opaque"></embed>' +
-'</object></div>';
+var template = '<div class=cycle-youtube>' +
+	'<iframe width="640" height="360" src="{{url}}" frameborder="0" {{allowFullScreen}}></iframe>' +
+	'</iframe></div>';
 
 $.extend($.fn.cycle.defaults, {
     youtubeAllowFullScreen: true,
@@ -28,7 +24,7 @@ $(document).on( 'cycle-bootstrap', function( e, opts ) {
         if ( $(this).attr('href') === undefined )
             return;
         var markup, slide = $(this), url = slide.attr( 'href' );
-        var fs = opts.youtubeAllowFullScreen ? 'true' : 'false';
+        var fs = opts.youtubeAllowFullScreen ? 'allowfullscreen' : '';
         url += ( /\?/.test( url ) ? '&' : '?') + 'enablejsapi=1';
         if ( opts.youtubeAutostart && opts.startingSlide === i )
             url += '&autoplay=1';
